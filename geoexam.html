@@ -87,17 +87,22 @@
             gap: 1.5rem;
             margin-top: 2.5rem;
         }
-        .button-group button {
+        .button-group button, .button-group a {
             padding: 0.8rem 2rem;
             font-size: 1.1rem;
             font-weight: 600;
             border-radius: 0.75rem;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-decoration: none; /* For anchor tags */
+            display: inline-flex; /* For consistent button styling */
+            align-items: center;
+            justify-content: center;
         }
-        .button-group button:hover {
+        .button-group button:hover, .button-group a:hover {
             transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
         }
         .submit-button {
             background-color: #4299e1;
@@ -114,6 +119,22 @@
         }
         .reset-button:hover {
             background-color: #cbd5e0;
+        }
+        .nav-button {
+            background-color: #667eea; /* Indigo */
+            color: white;
+            border: none;
+        }
+        .nav-button:hover {
+            background-color: #5a67d8;
+        }
+        .back-button {
+            background-color: #a0aec0; /* Gray */
+            color: white;
+            border: none;
+        }
+        .back-button:hover {
+            background-color: #718096;
         }
         #results {
             margin-top: 2.5rem;
@@ -137,18 +158,6 @@
         }
         .incorrect {
             color: #e53e3e; /* Red */
-        }
-        .back-to-home-button {
-            padding: 0.8rem 2rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 0.75rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        .back-to-home-button:hover {
-            background-color: #718096;
         }
     </style>
 </head>
@@ -635,7 +644,8 @@
             <div class="button-group">
                 <button type="button" class="submit-button" onclick="checkAnswers()">Check Answers</button>
                 <button type="button" class="reset-button" onclick="resetForm()">Reset</button>
-                <a href="index.html" class="back-to-home-button">Back to Home</a>
+                <a href="geography_answer_key.html" class="nav-button">View Answer Key</a>
+                <a href="index.html" class="back-button">Back to Home</a>
             </div>
         </form>
 
@@ -670,7 +680,7 @@
                 id8: "Caspian Sea",
                 id9: "Andes",
                 id10: "Galileo Galilei",
-                id11: "The Moon",
+                id11: "The Moon", // Stored as "The Moon"
                 id12: "Continents"
             },
             multipleChoice: {
@@ -694,9 +704,19 @@
             }
         };
 
-        // Function to normalize text for comparison (lowercase, trim, remove extra spaces)
+        // Function to normalize text for comparison (lowercase, trim, remove common articles, replace multiple spaces)
         function normalizeText(text) {
-            return text.toLowerCase().trim().replace(/\s+/g, ' ');
+            let normalized = text.toLowerCase().trim();
+            // Remove leading articles
+            if (normalized.startsWith('the ')) {
+                normalized = normalized.substring(4).trim();
+            } else if (normalized.startsWith('a ')) {
+                normalized = normalized.substring(2).trim();
+            } else if (normalized.startsWith('an ')) {
+                normalized = normalized.substring(3).trim();
+            }
+            // Replace multiple spaces with a single space
+            return normalized.replace(/\s+/g, ' ');
         }
 
         // Function to check answers and calculate score
@@ -717,7 +737,6 @@
                     const correctList = correctAnswers.enumeration[key].map(ans => normalizeText(ans));
 
                     let correctCount = 0;
-                    let feedbackMessage = '';
                     const seenUserAnswers = new Set(); // To prevent double counting if user repeats an answer
 
                     // Check how many of the user's answers are correct

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            color: #1a202c;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+        h2 {
+            color: #2d3748;
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 0.5rem;
+        }
+        .developer-info {
+            margin-bottom: 2rem;
+        }
+        .developer-info img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.5rem;
+            border: 4px solid #4299e1;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .developer-info p {
+            font-size: 1.1rem;
+            color: #4a5568;
+            margin-bottom: 0.5rem;
+        }
+        .contact-info a {
+            color: #4299e1;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .contact-info a:hover {
+            color: #3182ce;
+            text-decoration: underline;
+        }
+        .website-info p {
+            font-size: 1rem;
+            line-height: 1.6;
+            text-align: left;
+            margin-bottom: 1rem;
+            color: #4a5568;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+        .button-group a {
+            padding: 0.8rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .button-group a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+        .back-button {
+            background-color: #a0aec0; /* Gray */
+            color: white;
+            border: none;
+        }
+        .back-button:hover {
+            background-color: #718096;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>About This Website</h1>
+
+        <div class="developer-info">
+            <h2>The Developer</h2>
+            <!-- Placeholder image for the developer -->
+            <img src="profile.jpg" alt="Developer Image" class="rounded-full">
+            <p class="text-lg font-semibold text-gray-800">Domingo Agoncillo / Developer</p>
+            <div class="contact-info mt-4">
+                <p><strong>Contact:</strong></p>
+                <p>Email: <a href="domsagoncillo@gmail.com">domsagoncillo@gmail.com</a></p>
+                <p>Facebook: <a href="https://www.facebook.com/doms.second" target="_blank">Agoncillo Domingo</a></p>
+                <p>Telegram: <a href="https://t.me/Imdomsy" target="_blank">t.me/Imdomsy</a></p>
+            </div>
+        </div>
+
+        <div class="website-info">
+            <h2>About the Website</h2>
+            <p>This website was created to provide interactive examinations based on the provided learning materials. It features two main exams: "Geography" and "The Contemporary World".</p>
+            <p>Each exam includes a mix of enumeration, identification, and multiple-choice questions. Users can check their answers immediately and view a dedicated answer key page for each exam.</p>
+            <p>The goal is to offer a simple, accessible, and effective tool for self-assessment and review of key concepts in these subjects.</p>
+            <p class="mt-4 text-sm text-gray-500">
+                Developed with HTML, CSS (Tailwind CSS), and JavaScript for a responsive and engaging user experience.
+            </p>
+        </div>
+
+        <div class="button-group">
+            <a href="index.html" class="back-button">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

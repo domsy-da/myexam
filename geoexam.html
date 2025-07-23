@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geography Examination</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            max-width: 900px;
+            width: 100%;
+        }
+        h1 {
+            color: #1a202c;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        h2 {
+            color: #2d3748;
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 0.5rem;
+        }
+        .question-group {
+            margin-bottom: 1.5rem;
+        }
+        .question-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #4a5568;
+        }
+        .question-group input[type="text"],
+        .question-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #cbd5e0;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        .question-group input[type="text"]:focus,
+        .question-group textarea:focus {
+            outline: none;
+            border-color: #4299e1;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+        }
+        .question-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .multiple-choice-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+        .multiple-choice-option input[type="radio"] {
+            margin-right: 0.75rem;
+            transform: scale(1.2);
+        }
+        .multiple-choice-option label {
+            margin-bottom: 0;
+            font-weight: normal;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+        .button-group button {
+            padding: 0.8rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .button-group button:hover {
+            transform: translateY(-2px);
+        }
+        .submit-button {
+            background-color: #4299e1;
+            color: white;
+            border: none;
+        }
+        .submit-button:hover {
+            background-color: #3182ce;
+        }
+        .reset-button {
+            background-color: #e2e8f0;
+            color: #2d3748;
+            border: 1px solid #cbd5e0;
+        }
+        .reset-button:hover {
+            background-color: #cbd5e0;
+        }
+        #results {
+            margin-top: 2.5rem;
+            padding: 1.5rem;
+            background-color: #e6fffa;
+            border: 1px solid #b2f5ea;
+            border-radius: 0.75rem;
+            text-align: center;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2d3748;
+            display: none; /* Hidden by default */
+        }
+        .feedback {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .correct {
+            color: #38a169; /* Green */
+        }
+        .incorrect {
+            color: #e53e3e; /* Red */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Geography Examination</h1>
+
+        <form id="geographyExamForm">
+            <!-- I. Enumeration -->
+            <h2>I. Enumeration (2 points each item)</h2>
+            <div class="question-group">
+                <label for="enum1">1. What are the five themes of geography? (Separate answers with commas)</label>
+                <textarea id="enum1" name="enum1" rows="3" class="rounded-lg"></textarea>
+                <div id="feedback-enum1" class="feedback"></div>
+            </div>
+            <div class="question-group">
+                <label for="enum2">2. What are the two main branches of geography? (Separate answers with commas)</label>
+                <textarea id="enum2" name="enum2" rows="2" class="rounded-lg"></textarea>
+                <div id="feedback-enum2" class="feedback"></div>
+            </div>
+            <div class="question-group">
+                <label for="enum3">3. Name the three main layers of the Earth's structure. (Separate answers with commas)</label>
+                <textarea id="enum3" name="enum3" rows="2" class="rounded-lg"></textarea>
+                <div id="feedback-enum3" class="feedback"></div>
+            </div>
+            <div class="question-group">
+                <label for="enum4">4. List four of the Earth's oceans. (Separate answers with commas)</label>
+                <textarea id="enum4" name="enum4" rows="2" class="rounded-lg"></textarea>
+                <div id="feedback-enum4" class="feedback"></div>
+            </div>
+            <div class="question-group">
+                <label for="enum5">5. Name the seven continents of the world. (Separate answers with commas)</label>
+                <textarea id="enum5" name="enum5" rows="3" class="rounded-lg"></textarea>
+                <div id="feedback-enum5" class="feedback"></div>
+            </div>
+            <div class="question-group">
+                <label for="enum6">6. List three unique features of the Earth. (Separate answers with commas)</label>
+                <textarea id="enum6" name="enum6" rows="2" class="rounded-lg"></textarea>
+                <div id="feedback-enum6" class="feedback"></div>
+            </div>
+            <div class="question-group">
+                <label for="enum7">7. What are the four most spoken languages listed? (Separate answers with commas)</label>
+                <textarea id="enum7" name="enum7" rows="2" class="rounded-lg"></textarea>
+                <div id="feedback-enum7" class="feedback"></div>
+            </div>
+            <div class="question-group">
+                <label for="enum8">8. What are the four major religions listed? (Separate answers with commas)</label>
+                <textarea id="enum8" name="enum8" rows="2" class="rounded-lg"></textarea>
+                <div id="feedback-enum8" class="feedback"></div>
+            </div>
+            <div class="question-group">
+                <label for="enum9">9. Name four significant lines of latitude. (Separate answers with commas)</label>
+                <textarea id="enum9" name="enum9" rows="2" class="rounded-lg"></textarea>
+                <div id="feedback-enum9" class="feedback"></div>
+            </div>
+            <div class="question-group">
+                <label for="enum10">10. What are the four inner planets? (Separate answers with commas)</label>
+                <textarea id="enum10" name="enum10" rows="2" class="rounded-lg"></textarea>
+                <div id="feedback-enum10" class="feedback"></div>
+            </div>
+
+            <!-- II. Identification -->
+            <h2>II. Identification (2 points each)</h2>
+            <div class="question-group">
+                <label for="id1">1. A person who specializes in geography.</label>
+                <input type="text" id="id1" name="id1" class="rounded-lg">
+                <div id="feedback-id1" class="feedback"></div>
+            </div>
+            <div class="question-group">
+                <label for="id2">2. The Greek word meaning "description of the earth."</label>
+                <input type="text" id="id2" name="id2" class="rounded-lg">
+                <div id="feedback-id2" class="feedback"></div>
+            </div>
+            <div class="question-group">
+                <label for="id3">3. The thinnest and outermost layer of the Earth.</label>
+                <input type="text" id="id3" name="id3" class="rounded-lg">
+                <div id="feedback-id3" class="feedback"></div>
+            </div>
+            <div class="question-group">
+                <label for="id4">4. The world's highest mountain, located in China and Nepal.</label>
+                <input type="text" id="id4" name="id4" class="rounded-lg">
+                <div id="feedback-id4" class="feedback"></div>
+            </div>
+            <div class="question-group">
+                <label for="id5">5. The world's longest river, located in Africa.</label>
+                <input type="text" id="id5" name="id5" class="rounded-lg">
+                <div id="feedback-id5" class="feedback"></div>
+            </div>
+            <div class="question-group">
+                <label for="id6">6. The 0-degree latitude line that divides the Earth into the Northern and Southern Hemispheres.</label>
+                <input type="text" id="id6" name="id6" class="rounded-lg">
+                <div id="feedback-id6" class="feedback"></div>
+            </div>
+            <div class="question-group">
+                <label for="id7">7. The 0-degree longitude line that divides the Earth into the Eastern and Western Hemispheres.</label>
+                <input type="text" id="id7" name="id7" class="rounded-lg">
+                <div id="feedback-id7" class="feedback"></div>
+            </div>
+            <div class="question-group">
+                <label for="id8">8. The world's largest lake, found in Asia-Europe.</label>
+                <input type="text" id="id8" name="id8" class="rounded-lg">
+                <div id="feedback-id8" class="feedback"></div>
+            </div>
+            <div class="question-group">
+                <label for="id9">9. The world's longest mountain range, located in South America.</label>
+                <input type="text" id="id9" name="id9" class="rounded-lg">
+                <div id="feedback-id9" class="feedback"></div>
+            </div>
+            <div class="question-group">
+                <label for="id10">10. The first person in history to use a telescope for astronomical observation.</label>
+                <input type="text" id="id10" name="id10" class="rounded-lg">
+                <div id="feedback-id10" class="feedback"></div>
+            </div>
+            <div class="question-group">
+                <label for="id11">11. The natural satellite of Earth.</label>
+                <input type="text" id="id11" name="id11" class="rounded-lg">
+                <div id="feedback-id11" class="feedback"></div>
+            </div>
+            <div class="question-group">
+                <label for="id12">12. The term for large landmasses on the surface of the Earth.</label>
+                <input type="text" id="id12" name="id12" class="rounded-lg">
+                <div id="feedback-id12" class="feedback"></div>
+            </div>
+
+            <!-- III. Multiple Choice -->
+            <h2>III. Multiple Choice (2 points each)</h2>
+            <div class="question-group">
+                <p>1. Which discipline is affected by geographical conditions determining how historical events happened?</p>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc1a" name="mc1" value="a">
+                    <label for="mc1a">a) Economics</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc1b" name="mc1" value="b">
+                    <label for="mc1b">b) Political Science</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc1c" name="mc1" value="c">
+                    <label for="mc1c">c) History</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc1d" name="mc1" value="d">
+                    <label for="mc1d">d) Sociology</label>
+                </div>
+                <div id="feedback-mc1" class="feedback"></div>
+            </div>
+
+            <div class="question-group">
+                <p>2. What is the approximate distance of Earth from the sun?</p>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc2a" name="mc2" value="a">
+                    <label for="mc2a">a) 12,756 kilometers</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc2b" name="mc2" value="b">
+                    <label for="mc2b">b) 149.6 million km</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc2c" name="mc2" value="c">
+                    <label for="mc2c">c) 2,900 km</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc2d" name="mc2" value="d">
+                    <label for="mc2d">d) 2200 km</label>
+                </div>
+                <div id="feedback-mc2" class="feedback"></div>
+            </div>
+
+            <div class="question-group">
+                <p>3. What is the shape of the Earth?</p>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc3a" name="mc3" value="a">
+                    <label for="mc3a">a) Sphere</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc3b" name="mc3" value="b">
+                    <label for="mc3b">b) Ellipsoid</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc3c" name="mc3" value="c">
+                    <label for="mc3c">c) Oblate Spheroid</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc3d" name="mc3" value="d">
+                    <label for="mc3d">d) Geoid</label>
+                </div>
+                <div id="feedback-mc3" class="feedback"></div>
+            </div>
+
+            <div class="question-group">
+                <p>4. How much of the Earth's surface is covered by water?</p>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc4a" name="mc4" value="a">
+                    <label for="mc4a">a) 29%</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc4b" name="mc4" value="b">
+                    <label for="mc4b">b) 50%</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc4c" name="mc4" value="c">
+                    <label for="mc4c">c) 71%</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc4d" name="mc4" value="d">
+                    <label for="mc4d">d) 83%</label>
+                </div>
+                <div id="feedback-mc4" class="feedback"></div>
+            </div>
+
+            <div class="question-group">
+                <p>5. What is the diameter of the Earth?</p>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc5a" name="mc5" value="a">
+                    <label for="mc5a">a) 12,742 km</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc5b" name="mc5" value="b">
+                    <label for="mc5b">b) 12,756 km</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc5c" name="mc5" value="c">
+                    <label for="mc5c">c) 149.6 million km</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc5d" name="mc5" value="d">
+                    <label for="mc5d">d) 365.26 days</label>
+                </div>
+                <div id="feedback-mc5" class="feedback"></div>
+            </div>
+
+            <div class="question-group">
+                <p>6. How many languages are spoken today, according to the document?</p>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc6a" name="mc6" value="a">
+                    <label for="mc6a">a) 20</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc6b" name="mc6" value="b">
+                    <label for="mc6b">b) 200</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc6c" name="mc6" value="c">
+                    <label for="mc6c">c) 6,800</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc6d" name="mc6" value="d">
+                    <label for="mc6d">d) 9 million</label>
+                </div>
+                <div id="feedback-mc6" class="feedback"></div>
+            </div>
+
+            <div class="question-group">
+                <p>7. What is the period of Earth's rotation?</p>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc7a" name="mc7" value="a">
+                    <label for="mc7a">a) 365.26 days</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc7b" name="mc7" value="b">
+                    <label for="mc7b">b) 24 hours</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc7c" name="mc7" value="c">
+                    <label for="mc7c">c) 23 hours, 56 minutes and 4 seconds</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc7d" name="mc7" value="d">
+                    <label for="mc7d">d) 1 year</label>
+                </div>
+                <div id="feedback-mc7" class="feedback"></div>
+            </div>
+
+            <div class="question-group">
+                <p>8. What is the definition of the global economy according to the document?</p>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc8a" name="mc8" value="a">
+                    <label for="mc8a">a) Based on communism</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc8b" name="mc8" value="b">
+                    <label for="mc8b">b) Based on free market capitalism</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc8c" name="mc8" value="c">
+                    <label for="mc8c">c) Based on socialism</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc8d" name="mc8" value="d">
+                    <label for="mc8d">d) Based on bartering</label>
+                </div>
+                <div id="feedback-mc8" class="feedback"></div>
+            </div>
+
+            <div class="question-group">
+                <p>9. What are horizontal lines that run east to west around the earth called?</p>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc9a" name="mc9" value="a">
+                    <label for="mc9a">a) Longitude</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc9b" name="mc9" value="b">
+                    <label for="mc9b">b) Parallels</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc9c" name="mc9" value="c">
+                    <label for="mc9c">c) Meridians</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc9d" name="mc9" value="d">
+                    <label for="mc9d">d) Equators</label>
+                </div>
+                <div id="feedback-mc9" class="feedback"></div>
+            </div>
+
+            <div class="question-group">
+                <p>10. The Prime Meridian passes through which location?</p>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc10a" name="mc10" value="a">
+                    <label for="mc10a">a) New York</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc10b" name="mc10" value="b">
+                    <label for="mc10b">b) Paris</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc10c" name="mc10" value="c">
+                    <label for="mc10c">c) Greenwich, a borough of London</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc10d" name="mc10" value="d">
+                    <label for="mc10d">d) The Equator</label>
+                </div>
+                <div id="feedback-mc10" class="feedback"></div>
+            </div>
+
+            <div class="question-group">
+                <p>11. What is the densest and hottest layer of semi-solid rock below the crust?</p>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc11a" name="mc11" value="a">
+                    <label for="mc11a">a) Core</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc11b" name="mc11" value="b">
+                    <label for="mc11b">b) Inner Core</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc11c" name="mc11" value="c">
+                    <label for="mc11c">c) Mantle</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc11d" name="mc11" value="d">
+                    <label for="mc11d">d) Outer Core</label>
+                </div>
+                <div id="feedback-mc11" class="feedback"></div>
+            </div>
+
+            <div class="question-group">
+                <p>12. The study of the different physical features and processes of the earth is known as what?</p>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc12a" name="mc12" value="a">
+                    <label for="mc12a">a) Human Geography</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc12b" name="mc12" value="b">
+                    <label for="mc12b">b) Political Science</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc12c" name="mc12" value="c">
+                    <label for="mc12c">c) Physical Geography</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc12d" name="mc12" value="d">
+                    <label for="mc12d">d) Geology</label>
+                </div>
+                <div id="feedback-mc12" class="feedback"></div>
+            </div>
+
+            <div class="question-group">
+                <p>13. How many countries were there after the Second World War, according to the document?</p>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc13a" name="mc13" value="a">
+                    <label for="mc13a">a) 200</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc13b" name="mc13" value="b">
+                    <label for="mc13b">b) 80</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc13c" name="mc13" value="c">
+                    <label for="mc13c">c) 9 million</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc13d" name="mc13" value="d">
+                    <label for="mc13d">d) 6,800</label>
+                </div>
+                <div id="feedback-mc13" class="feedback"></div>
+            </div>
+
+            <div class="question-group">
+                <p>14. The magnetic field of the Earth protects it from what?</p>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc14a" name="mc14" value="a">
+                    <label for="mc14a">a) Earthquakes</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc14b" name="mc14" value="b">
+                    <label for="mc14b">b) Solar radiation</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc14c" name="mc14" value="c">
+                    <label for="mc14c">c) The moon's gravitational pull</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc14d" name="mc14" value="d">
+                    <label for="mc14d">d) Volcanic eruptions</label>
+                </div>
+                <div id="feedback-mc14" class="feedback"></div>
+            </div>
+
+            <div class="question-group">
+                <p>15. What does the term "geographia" mean?</p>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc15a" name="mc15" value="a">
+                    <label for="mc15a">a) "To write"</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc15b" name="mc15" value="b">
+                    <label for="mc15b">b) "Earth"</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc15c" name="mc15" value="c">
+                    <label for="mc15c">c) "Description of the earth"</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc15d" name="mc15" value="d">
+                    <label for="mc15d">d) "Scientific study"</label>
+                </div>
+                <div id="feedback-mc15" class="feedback"></div>
+            </div>
+
+            <div class="question-group">
+                <p>16. Which of the following is the world's widest and driest desert?</p>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc16a" name="mc16" value="a">
+                    <label for="mc16a">a) Andes</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc16b" name="mc16" value="b">
+                    <label for="mc16b">b) Sahara</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc16c" name="mc16" value="c">
+                    <label for="mc16c">c) Mount Everest</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc16d" name="mc16" value="d">
+                    <label for="mc16d">d) Tambora</label>
+                </div>
+                <div id="feedback-mc16" class="feedback"></div>
+            </div>
+
+            <div class="question-group">
+                <p>17. The belief that the Earth was the center of the universe with other celestial bodies orbiting it was held for most of human history. Due to this belief, what was the Earth not originally considered to be?</p>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc17a" name="mc17" value="a">
+                    <label for="mc17a">a) A planet</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc17b" name="mc17" value="b">
+                    <label for="mc17b">b) A satellite</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc17c" name="mc17" value="c">
+                    <label for="mc17c">c) A sun</label>
+                </div>
+                <div class="multiple-choice-option">
+                    <input type="radio" id="mc17d" name="mc17" value="d">
+                    <label for="mc17d">d) A star</label>
+                </div>
+                <div id="feedback-mc17" class="feedback"></div>
+            </div>
+
+            <div class="button-group">
+                <button type="button" class="submit-button" onclick="checkAnswers()">Check Answers</button>
+                <button type="button" class="reset-button" onclick="resetForm()">Reset</button>
+            </div>
+        </form>
+
+        <div id="results" class="rounded-lg">
+            Your Score: <span id="score">0</span> / <span id="total-score">0</span>
+        </div>
+    </div>
+
+    <script>
+        // Define the correct answers for the exam
+        const correctAnswers = {
+            enumeration: {
+                enum1: ["Location", "Place", "Region", "Human-environment interactions", "Movement"],
+                enum2: ["Physical Geography", "Human Geography"],
+                enum3: ["Crust", "Mantle", "Core"],
+                enum4: ["Pacific Ocean", "Atlantic Ocean", "Indian Ocean", "Southern/Antarctic Ocean", "Arctic Ocean"], // Allow any 4
+                enum5: ["Asia", "Africa", "North America", "South America", "Antarctica", "Europe", "Australia"],
+                enum6: ["Supports a breathable atmosphere", "Contains liquid water", "Has a magnetic field"],
+                enum7: ["Mandarin", "English", "Spanish", "Hindu"],
+                enum8: ["Christianity", "Islam", "Hinduism", "Buddhism"],
+                enum9: ["Tropic of Cancer", "Tropic of Capricorn", "Arctic Circle", "Antarctic Circle"],
+                enum10: ["Mercury", "Venus", "Earth", "Mars"]
+            },
+            identification: {
+                id1: "Geographer",
+                id2: "geographia",
+                id3: "Crust",
+                id4: "Mount Everest",
+                id5: "Nile",
+                id6: "Equator",
+                id7: "Prime Meridian",
+                id8: "Caspian Sea",
+                id9: "Andes",
+                id10: "Galileo Galilei",
+                id11: "The Moon",
+                id12: "Continents"
+            },
+            multipleChoice: {
+                mc1: "c", // History
+                mc2: "b", // 149.6 million km
+                mc3: "c", // Oblate Spheroid
+                mc4: "c", // 71%
+                mc5: "a", // 12,742 km (from document, though 12,756 is also common)
+                mc6: "c", // 6,800
+                mc7: "c", // 23 hours, 56 minutes and 4 seconds
+                mc8: "b", // Based on free market capitalism
+                mc9: "b", // Parallels
+                mc10: "c", // Greenwich, a borough of London
+                mc11: "c", // Mantle
+                mc12: "c", // Physical Geography
+                mc13: "b", // 80
+                mc14: "b", // Solar radiation
+                mc15: "c", // "Description of the earth"
+                mc16: "b", // Sahara
+                mc17: "a"  // A planet
+            }
+        };
+
+        // Function to normalize text for comparison (lowercase, trim, remove extra spaces)
+        function normalizeText(text) {
+            return text.toLowerCase().trim().replace(/\s+/g, ' ');
+        }
+
+        // Function to check answers and calculate score
+        function checkAnswers() {
+            let score = 0;
+            let totalPossibleScore = 0;
+
+            // --- Enumeration ---
+            for (const key in correctAnswers.enumeration) {
+                const textarea = document.getElementById(key);
+                const feedbackDiv = document.getElementById(`feedback-${key}`);
+                feedbackDiv.textContent = ''; // Clear previous feedback
+
+                if (textarea) {
+                    const userAnswerText = normalizeText(textarea.value);
+                    // Split user's answers by comma, trim each, filter out empty strings
+                    const userAnswers = userAnswerText.split(',').map(ans => normalizeText(ans)).filter(ans => ans !== '');
+                    const correctList = correctAnswers.enumeration[key].map(ans => normalizeText(ans));
+
+                    let correctCount = 0;
+                    let feedbackMessage = '';
+                    const seenUserAnswers = new Set(); // To prevent double counting if user repeats an answer
+
+                    // Check how many of the user's answers are correct
+                    userAnswers.forEach(userAns => {
+                        if (correctList.includes(userAns) && !seenUserAnswers.has(userAns)) {
+                            correctCount++;
+                            seenUserAnswers.add(userAns);
+                        }
+                    });
+
+                    // Calculate points for this enumeration question
+                    const questionPoints = correctList.length * 2; // Each item is 2 points
+                    const earnedPoints = correctCount * 2;
+                    score += earnedPoints;
+                    totalPossibleScore += questionPoints;
+
+                    if (correctCount === correctList.length && userAnswers.length === correctList.length) {
+                        feedbackDiv.textContent = `Correct! (${earnedPoints} points)`;
+                        feedbackDiv.className = 'feedback correct';
+                    } else if (correctCount > 0) {
+                        feedbackDiv.textContent = `Partially correct. You got ${correctCount} out of ${correctList.length} items. (${earnedPoints} points)`;
+                        feedbackDiv.className = 'feedback incorrect';
+                    } else {
+                        feedbackDiv.textContent = `Incorrect. (${earnedPoints} points)`;
+                        feedbackDiv.className = 'feedback incorrect';
+                    }
+                }
+            }
+
+            // --- Identification ---
+            for (const key in correctAnswers.identification) {
+                const input = document.getElementById(key);
+                const feedbackDiv = document.getElementById(`feedback-${key}`);
+                feedbackDiv.textContent = ''; // Clear previous feedback
+
+                if (input) {
+                    const userAnswer = normalizeText(input.value);
+                    const correctAnswer = normalizeText(correctAnswers.identification[key]);
+                    totalPossibleScore += 2; // Each identification question is 2 points
+
+                    if (userAnswer === correctAnswer) {
+                        score += 2;
+                        feedbackDiv.textContent = 'Correct!';
+                        feedbackDiv.className = 'feedback correct';
+                    } else {
+                        feedbackDiv.textContent = `Incorrect. Correct answer: ${correctAnswers.identification[key]}`;
+                        feedbackDiv.className = 'feedback incorrect';
+                    }
+                }
+            }
+
+            // --- Multiple Choice ---
+            for (const key in correctAnswers.multipleChoice) {
+                const selectedOption = document.querySelector(`input[name="${key}"]:checked`);
+                const feedbackDiv = document.getElementById(`feedback-${key}`);
+                feedbackDiv.textContent = ''; // Clear previous feedback
+
+                totalPossibleScore += 2; // Each multiple choice question is 2 points
+
+                if (selectedOption) {
+                    if (selectedOption.value === correctAnswers.multipleChoice[key]) {
+                        score += 2;
+                        feedbackDiv.textContent = 'Correct!';
+                        feedbackDiv.className = 'feedback correct';
+                    } else {
+                        feedbackDiv.textContent = `Incorrect. Correct option: ${correctAnswers.multipleChoice[key].toUpperCase()}`;
+                        feedbackDiv.className = 'feedback incorrect';
+                    }
+                } else {
+                    feedbackDiv.textContent = 'No answer selected.';
+                    feedbackDiv.className = 'feedback incorrect';
+                }
+            }
+
+            // Display overall score
+            document.getElementById('score').textContent = score;
+            document.getElementById('total-score').textContent = totalPossibleScore;
+            document.getElementById('results').style.display = 'block'; // Show results div
+        }
+
+        // Function to reset the form
+        function resetForm() {
+            document.getElementById('geographyExamForm').reset(); // Reset all form fields
+            document.getElementById('results').style.display = 'none'; // Hide results div
+
+            // Clear all feedback messages
+            const feedbackDivs = document.querySelectorAll('.feedback');
+            feedbackDivs.forEach(div => {
+                div.textContent = '';
+                div.className = 'feedback'; // Reset class
+            });
+        }
+    </script>
+</body>
+</html>
